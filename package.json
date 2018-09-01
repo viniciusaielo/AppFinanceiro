@@ -1,0 +1,41 @@
+{
+	"name": "Financeiro",
+	"version": "0.0.1",
+	"private": true,
+	"scripts": {
+		"start": "node node_modules/react-native/local-cli/cli.js start",
+		"test": "jest"
+	},
+	"dependencies": {
+		"base-64": "^0.1.0",
+		"create-react-class": "^15.6.3",
+		"firebase": "^4.13.1",
+		"lodash": "^4.17.10",
+		"native-base": "^2.1.0",
+		"react": "16.0.0-alpha.6",
+		"react-native": "0.44.0",
+		"react-native-checkbox": "^2.0.0",
+		"react-native-datepicker": "^1.7.2",
+		"react-native-drawer": "^2.5.0",
+		"react-native-elements": "^0.19.1",
+		"react-native-hamburger": "0.0.2",
+		"react-native-popup-dialog": "^0.14.52",
+		"react-native-router-flux": "^3.38.0",
+		"react-native-tab-view": "^1.0.2",
+		"react-native-vector-icons": "^4.6.0",
+		"react-navigation": "^2.5.5",
+		"react-redux": "^5.0.7",
+		"reducers": "^3.0.0-alpha",
+		"redux": "^4.0.0",
+		"redux-thunk": "^2.3.0"
+	},
+	"devDependencies": {
+		"babel-jest": "21.2.0",
+		"babel-preset-react-native": "4.0.0",
+		"jest": "23.2.0",
+		"react-test-renderer": "16.0.0-alpha.6"
+	},
+	"jest": {
+		"preset": "react-native"
+	}
+}
