@@ -14,8 +14,8 @@ import {
     MODIFICA_CONTAD,
     CHECKED,
     CHECKEDD,
-     CONSULTA_RECEITA,
-    CARREGOU
+    LISTA_RECEITA_USUARIO,
+    LISTA_DESPESA_USUARIO
 
    
 } from './types';
@@ -117,48 +117,42 @@ export const enviaReceita = ({valor,data,desc,cat,conta}) => {
 export const enviaDespesa = ({valor,data,desc,cat,conta}) => {
 
     return dispatch => {
-         firebase.database().ref(`/despesa/${cat}/${data}`)
-        .set({data, valor, desc, conta })
+         firebase.database().ref(`/despesa/data`)
+        .push({data,cat, valor, desc, conta })
         .then(alert("Despesa Salva"))
         .catch(erro => console.log(erro.message, dispatch))
     }
 }
-var lista = [];
+
 
 export const consultaReceita = () => {
    
-     return dispatch => {
-        firebase.database().ref('/receita/data').on('value',function(snapshot) {
-            snapshot.forEach(function(childSnapshot) {
-                var item = childSnapshot.val();
-                lista.push(item);
-            });
-            return {
-    
-        type: CONSULTA_RECEITA,
-        payload: lista
-    }
-            
+
+    return (dispatch) => {
+      
+
+        firebase.database().ref(`/receita/data`)
+            .on("value", snapshot => {
+                dispatch({ type: LISTA_RECEITA_USUARIO, payload: snapshot.val() })
             })
-    }
+    }  
+}
+
+export const consultaDespesa = () => {
+   
+
+    return (dispatch) => {
+      
+
+        firebase.database().ref(`/despesa/data`)
+            .on("value", snapshot => {
+                dispatch({ type: LISTA_DESPESA_USUARIO, payload: snapshot.val() })
+            })
+    }  
 }
 
 
-const carregou = () =>{
-    alert("carregou");
-    mostra();
-     return {
-        type: CARREGOU,
-        payload: true
-    }
-}
-const mostra = () => {
-    alert(lista)
-    return {
-        type: CONSULTA_RECEITA,
-        payload: lista
-    }
-}
+
 /*export const consultaReceita = () => {
    firebase.database().ref('/receita/data').on('value', function(snapshot) {lista = snapshotToArray(snapshot);});
     return {

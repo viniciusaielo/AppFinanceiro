@@ -1,45 +1,54 @@
 import React, {Component} from 'react';
-import { View, TextInput, Image, Text, ScrollView, Picker, ActivityIndicator } from 'react-native';
+import { View, Text,  ListView, ActivityIndicator } from 'react-native';
 import { connect } from 'react-redux';
-import {Button, ListItem, Icon } from 'react-native-elements';
-//import Icon from 'react-native-vector-icons/FontAwesome';
-import { consultaReceita } from '../actions/eventoActions';
+import { Icon } from 'react-native-elements';
 import DatePicker from 'react-native-datepicker';
 import {Container, Header, Body, Left} from 'native-base';
 import {DrawerActions} from 'react-navigation';
 import Hamburger from 'react-native-hamburger';
-import Itens from './Itens';
+import _ from 'lodash'
 import {
     Actions
    } from 'react-native-router-flux';
-import firebase from 'firebase';
-
-
+import { consultaReceita } from '../actions/eventoActions';
+import Itens from './Itens';
 
 class ConsultaReceita  extends Component {
    
-    constructor(props){
-  	super(props);
-
-  }
     componentWillMount(){
-   
-    this.props.consultaReceita()
-    console.log(this.props.lista)
-  }
+        this.props.consultaReceita()
+        this.criaFonteDeDados( this.props.receitas )
+        this.loading = true
 
-  renderScroll(){
-      if(this.props.carregado){
-          return (
-                     <ScrollView style={{flex:1, marginBottom: 10 }}>
-                                {this.props.lista.map( item => ( <Itens key= {item.cat} item ={item} />))}
-                        </ScrollView>
-                        );
-      }
-        return (
+     }
+    componentWillReceiveProps(nextProps) {
+        this.criaFonteDeDados( nextProps.receitas )
+        this.loading = false;
+     }
+
+    criaFonteDeDados( receitas ) {
+        const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 })
+        this.fonteDeDados = ds.cloneWithRows(receitas)
+        
+    }
+
+    renderList(){
+        if(this.loading) {
+            return (
                 <ActivityIndicator size="large" />
-            );
-  }
+            )
+        }
+        return (
+            <ListView
+                enableEmptySections
+                dataSource={this.fonteDeDados}
+                renderRow={data => (
+                        <Itens key ={data.uid} data ={data} />
+                    )
+                }
+          />
+        )
+    }
 
     render(){
         return(
@@ -99,7 +108,7 @@ class ConsultaReceita  extends Component {
                             </View>
                         </View>
                         <View style={{flex:1, marginBottom: 10 }}>
-                            {this.renderScroll()} 
+                            {this.renderList()}
                         </View>
                             <View style={{ alignItems: 'flex-end', justifyContent: 'center' }}>
                             <Icon name='add' color='#fff' size={50} underlayColor='#000' raised 
@@ -116,12 +125,12 @@ class ConsultaReceita  extends Component {
         );
     }
 }
-const mapStateToProps = state => (
-    {
-      lista: state.EventoReducer.listaItens,
-      carregado: state.EventoReducer.carregar
-    }
-)
+const mapStateToProps = state => {
+    const receitas = _.map(state.ListaReceitasReducer, (val, uid) => {
+        return { ...val, uid }
+    })
+    return { receitas }
+}
 
 
 export default connect(mapStateToProps,{consultaReceita})(ConsultaReceita);

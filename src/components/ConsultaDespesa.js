@@ -1,55 +1,54 @@
 import React, {Component} from 'react';
-import { View, TextInput, Image, Text, ScrollView, Picker } from 'react-native';
+import { View, ListView, Text, ActivityIndicator} from 'react-native';
 import { connect } from 'react-redux';
-import {Button, ListItem, Icon} from 'react-native-elements';
-import { modificaValor, modificaData, modificaDesc, modificaCat, modificaConta, checked } from '../actions/eventoActions';
+import { Icon} from 'react-native-elements';
+import { modificaValor, modificaData, modificaDesc, modificaCat, modificaConta, checked, consultaDespesa } from '../actions/eventoActions';
 import DatePicker from 'react-native-datepicker';
-import {Container, Header, Content, Left, Body} from 'native-base';
+import {Container, Header, Left, Body} from 'native-base';
 import { DrawerActions} from 'react-navigation';
 import Hamburger from 'react-native-hamburger';
 import {
     Actions
    } from 'react-native-router-flux';
 
-import firebase from 'firebase';
-import Itens from './Itens';
+import ItensD from './ItensD';
 
 class ConsultaDespesa  extends Component {
- constructor(props){
-  	super(props);
+    componentWillMount(){
+        this.props.consultaDespesa()
+        this.criaFonteDeDados( this.props.despesas )
+        this.loading = true
 
-  	this.state  = { listaItens: []};
+     }
+    componentWillReceiveProps(nextProps) {
+        this.criaFonteDeDados( nextProps.despesas )
+        this.loading = false;
+     }
 
-  }
-  componentWillMount(){
-      firebase.database().ref('/receita/data').once('value').then( function(snapshot) {
-       
-        var returnArr = [];
-
-        snapshot.forEach(function(childSnapshot) {
-            var item = childSnapshot.val();
-            item.key = childSnapshot.key;
-
-            this.setState( listaItens.push(item));
-        });
-        console.log(this.state.listaItens)
-    });
-  
-  }
-
-snapshotToArray(snapshot){
-       var array =[];
-        snapshot.forEach(function(childSnapshot) {
-            var item = childSnapshot.val();
-            this.state.listaItens.push(item);
-            array.push(item);
-            console.log(item)
-     
-        });
-         console.log(array)
+    criaFonteDeDados( despesas ) {
+        const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 })
+        this.fonteDeDados = ds.cloneWithRows(despesas)
         
     }
-    
+
+    renderList(){
+        if(this.loading) {
+            return (
+                <ActivityIndicator size="large" />
+            )
+        }
+        return (
+            <ListView
+                enableEmptySections
+                dataSource={this.fonteDeDados}
+                renderRow={data => (
+                        <ItensD key ={data.uid} data ={data} />
+                    )
+                }
+          />
+        )
+    }
+
     render(){
         return(
             <Container>
@@ -107,9 +106,9 @@ snapshotToArray(snapshot){
                                 </Icon>
                             </View>
                         </View> 
-                        <ScrollView style={{flex:1, marginBottom: 10 }}>
-                            {this.state.listaItens.map( item => ( <Itens key= {item.cat} item ={item} />))}
-                        </ScrollView>
+                        <View style={{flex:1, marginBottom: 10 }}>
+                            {this.renderList()}
+                        </View>
                             <View style={{ alignItems: 'flex-end', justifyContent: 'center' }}>
                             <Icon name='add' color='#fff' size={50} underlayColor='#000' raised 
                                 containerStyle={{width: 60,height:60, backgroundColor: '#ff0000', borderWidth: 2,
@@ -124,15 +123,12 @@ snapshotToArray(snapshot){
     }
 }
 
-const mapStateToProps = state => (
-    {
-        valor: state.EventoReducer.valor,
-        data: state.EventoReducer.data,
-        desc: state.EventoReducer.desc,
-        cat: state.EventoReducer.cat,
-        conta: state.EventoReducer.conta,
-        verificado: state.EventoReducer.verificado
-    }
-)
+const mapStateToProps = state => {
+    const despesas = _.map(state.ListaDespesasReducer, (val, uid) => {
+        return { ...val, uid }
+    })
+    return { despesas }
+}
 
-export default connect(mapStateToProps, { modificaValor, modificaData, modificaDesc, modificaCat, modificaConta, checked})(ConsultaDespesa);
+
+export default connect(mapStateToProps, { modificaValor, modificaData, modificaDesc, modificaCat, modificaConta, checked, consultaDespesa})(ConsultaDespesa);

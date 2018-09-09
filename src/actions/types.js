@@ -26,5 +26,6 @@ export const FECHAMENTO  = 'cartao_fec';
 export const DISPONIVEL  = 'cartao_dispo';
 export const BANDEIRA  = 'bandeira';
 export const MODIFICA_CONTA_CARTAO  = 'conta_cartao';
-export const CONSULTA_RECEITA = 'consulta_receita';
-export const CARREGOU = 'carregou'
+export const LISTA_RECEITA_USUARIO = 'consulta_receita';
+export const LISTA_DESPESA_USUARIO = 'consulta_despesa';
+

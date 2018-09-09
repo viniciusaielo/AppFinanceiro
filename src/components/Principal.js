@@ -12,8 +12,7 @@ import {
 import {Icon} from 'react-native-elements';
 import { Container, Header, Content, Left, Body} from 'native-base';
 import { DrawerNavigator, DrawerActions} from 'react-navigation';
-import Home from './Home';
-import Setting from './Setting';
+
 
 
 

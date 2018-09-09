@@ -9,14 +9,14 @@ import {
 } from 'react-native';
 import { Icon } from 'react-native-elements';
 
-const receita = require('../imgs/receita.png');
+const despesa = require('../imgs/despesa.png');
 
 export default class Itens extends Component {
   render() {
     return (
       <View style={styles.principal}>
         <View style={styles.foto}>
-          <Image style = {{height: 50, width: 50}}source ={receita}/>
+          <Image style = {{height: 50, width: 50}}source ={despesa}/>
         </View>
         <View style={styles.detalhes2}>
           <Text style={styles.titulo}>{this.props.data.cat}</Text>
