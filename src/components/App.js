@@ -11,8 +11,8 @@ import { DrawerNavigator, DrawerItems } from 'react-navigation';
 import ConsultaReceita from './ConsultaReceita';
 import Principal from './Principal';
 import ConsultaDespesa from './ConsultaDespesa';
-import Home from './Home';
-import Setting from './Setting';
+import Cartao from './Cartao';
+import Conta from './Conta';
 import { Container, Header, Content } from 'native-base';
 
 
@@ -43,6 +43,14 @@ const MyApp = DrawerNavigator({
     },
     Despesas: {
       screen: ConsultaDespesa
+
+    },
+    Cartões: {
+      screen: Cartao
+
+    },
+    Contas: {
+      screen: Conta
 
     }
   },

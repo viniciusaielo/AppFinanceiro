@@ -5,37 +5,61 @@ import { Icon } from 'react-native-elements';
 import DatePicker from 'react-native-datepicker';
 import {Container, Header, Body, Left} from 'native-base';
 import {DrawerActions} from 'react-navigation';
-import Hamburger from 'react-native-hamburger';
+
 import _ from 'lodash'
 import {
     Actions
    } from 'react-native-router-flux';
-import { consultaReceita } from '../actions/eventoActions';
+import { consultaReceita, consultaData} from '../actions/eventoActions';
 import Itens from './Itens';
 
 class ConsultaReceita  extends Component {
    
     componentWillMount(){
-        this.props.consultaReceita()
-        this.criaFonteDeDados( this.props.receitas )
-        this.loading = true
+        this.props.consultaReceita();
+        this.criaFonteDeDados( this.props.receitas );
+        this.loading = true;
+        this.data1 = '09-21-2016';
+        this.data2 = '09-29-2016';
+        this.contador = 0;
+        this.consultado = [];
 
      }
     componentWillReceiveProps(nextProps) {
         this.criaFonteDeDados( nextProps.receitas )
         this.loading = false;
+        this.tamanho = nextProps.receitas.length ;
+        
      }
 
     criaFonteDeDados( receitas ) {
         const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 })
+        
+        receitas.sort((a,b) => {
+            if (new Date(a.data) < new Date(b.data)){
+                return 1;
+            }
+            if (new Date(a.data) > new Date(b.data)){
+                return -1;
+            }
+            return 0;
+        })
         this.fonteDeDados = ds.cloneWithRows(receitas)
         
+     
     }
 
     renderList(){
         if(this.loading) {
             return (
                 <ActivityIndicator size="large" />
+            )
+        }
+        if(this.tamanho == 0) {
+            return(
+                <View style={{ flex: 2, alignItems: 'center', justifyContent: 'center' }} >
+                     <Text> NENHUM REGISTRO ENCONTRADO </Text>
+                </View>
             )
         }
         return (
@@ -49,17 +73,34 @@ class ConsultaReceita  extends Component {
           />
         )
     }
-
+    modificaData(date){
+        this.data1 = date
+    }
+    modificaData2(date){
+        this.data2 = date
+    }
+    filtro(){
+        console.log(this.contador)
+       
+        if(this.contador == 0){
+            this.consultado = this.props.receitas
+            this.props.consultaData( this.consultado, this.data1, this.data2)
+            this.contador += 1
+        }
+        this.props.consultaData(this.consultado, this.data1, this.data2)
+  
+    }
+    
     render(){
         return(
             <Container>
-                <Header style={{height: 50, backgroundColor: '#20b2aa'}}>
+                <Header androidStatusBarColor='#00CED1' style={{height: 50, backgroundColor: '#20b2aa'}}>
                     <Left >
-                        <Hamburger 
-                            type="cross"
+                        <Icon name="menu" 
+                            size={40} 
                             color="white"
-                            onPress={ () => this.props.navigation.dispatch(DrawerActions.openDrawer())
-                            } />
+                            onPress={ () => this.props.navigation.dispatch(DrawerActions.openDrawer())} 
+                        />
                     </Left>
                     <Body>
                         <Text style={{fontSize: 22, color: '#fff', marginLeft: 25}}> Receitas </Text>
@@ -72,36 +113,37 @@ class ConsultaReceita  extends Component {
                             <Text> De </Text>
                             <DatePicker
                                 style={{width: 150}}
-                                date={this.props.data}
+                                date={this.data1}
                                 mode="date"
                                 placeholder = 'selecione a data'
-                                format='DD-MM-YYYY'
+                                format='MM-DD-YYYY'
                                 minDate='01-01-1970'
                                 maxDate='30-12-2100'
                                 confirmBtnText = 'Confirmar'
                                 cancelBtnText = 'Cancelar'
                                 customStyles={{ dateIcon : {position: 'absolute', left: 0, top: 4, marginLeft: 0 }, dateInput: {marginLeft: 36}}}
-                                onDateChange = {(date) => this.props.modificaData(date)}
+                                onDateChange = {(date) => this.modificaData(date)}
                             />
                        
                             <Text> Até </Text>
                             <DatePicker
                                 style={{width: 150}}
-                                date={this.props.data}
+                                date={this.data2}
                                 mode="date"
                                 placeholder = 'selecione a data'
-                                format='DD-MM-YYYY'
+                                format='MM-DD-YYYY'
                                 minDate='01-01-1970'
                                 maxDate='30-12-2100'
                                 confirmBtnText = 'Confirmar'
                                 cancelBtnText = 'Cancelar'
-                                onDateChange = {(date) => this.props.modificaData(date)}
+                                onDateChange = {(date) => this.modificaData2(date)}
                             />
                         </View>
                          <View style={{ margin: 10,justifyContent: 'center' }}>
                             <View style={{ alignItems: 'flex-end', justifyContent: 'center' }}>
                                 <Icon name='search' containerStyle={{width: 100, height: 50,backgroundColor: '#fff', borderWidth: 2,
-                                     borderRadius:50, borderColor: "black"}}  color="#000" 
+                                     borderRadius:50, borderColor: "black"}}  color="#000"  onPress={() => 
+                                        this.filtro() }
                                       >
                                    
                                 </Icon>
@@ -130,7 +172,8 @@ const mapStateToProps = state => {
         return { ...val, uid }
     })
     return { receitas }
+    
 }
 
 
-export default connect(mapStateToProps,{consultaReceita})(ConsultaReceita);
+export default connect(mapStateToProps,{consultaReceita, consultaData})(ConsultaReceita);

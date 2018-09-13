@@ -103,7 +103,7 @@ export const checkedD = (texto) => {
 
 
 export const enviaReceita = ({valor,data,desc,cat,conta}) => {
-
+   
     return dispatch => {  
         firebase.database().ref(`/receita/data`)
         .push({data,cat, valor, desc, conta })
@@ -136,6 +136,52 @@ export const consultaReceita = () => {
                 dispatch({ type: LISTA_RECEITA_USUARIO, payload: snapshot.val() })
             })
     }  
+}
+
+export const consultaData = (receitas, datai, dataf) => {
+    let ordena = receitas;
+    let ordenado = [];
+    var i;
+    var dataI = new Date(datai);
+    var dataF = new Date(dataf);
+    var data;
+    for( i = 0; i < ordena.length ; i++){
+        data = new Date(ordena[i].data)
+        if(data >= dataI && data <= dataF ){
+            ordenado.push(ordena[i]); 
+        }
+    }
+    console.log('aqui')
+    console.log(ordenado)
+     return {
+        type: LISTA_RECEITA_USUARIO,
+        payload: ordenado
+    }
+
+}
+export const consultaDataD = (despesas, datai, dataf) => {
+    let ordena = despesas;
+    console.log(despesas)
+    let ordenado = [];
+    var i;
+    console.log(datai)
+    console.log(dataf)
+    var dataI = new Date(datai);
+    var dataF = new Date(dataf);
+    var data;
+    for( i = 0; i < ordena.length ; i++){
+        data = new Date(ordena[i].data)
+        if(data >= dataI && data <= dataF ){
+            ordenado.push(ordena[i]); 
+        }
+    }
+    console.log('aqui')
+    console.log(ordenado)
+     return {
+        type:  LISTA_DESPESA_USUARIO,
+        payload: ordenado
+    }
+
 }
 
 export const consultaDespesa = () => {

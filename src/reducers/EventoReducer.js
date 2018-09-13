@@ -18,12 +18,12 @@ import {
 
 const INITIAL_STATE = {
     valor: '',
-    data: '15-05-2016',
+    data: '05-10-2016',
     desc: '',
     cat: 'Salario',
     conta: 'Carteira',
     valorD: '',
-    dataD: '15-05-2016',
+    dataD: '05-10-2016',
     descD: '',
     catD: 'Alimentacao',
     contaD: 'Carteira',
@@ -34,7 +34,7 @@ const INITIAL_STATE = {
 }
 
 export default (state = INITIAL_STATE, action) => {
-    console.log();
+   
     switch(action.type) {
         case MODIFICA_VALOR:
             return { ...state, valor: action.payload }

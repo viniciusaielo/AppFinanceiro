@@ -25,7 +25,9 @@ export default class Itens extends Component {
         </View>
         <View style={styles.detalhes}>
           <Text style={styles.valor}>R$ {this.props.data.valor}</Text>
-          <Icon name='edit' containerStyle={{width: 100, height: 30,backgroundColor: '#fff'}}  color="#000" 
+        </View>
+        <View style={styles.icone}>
+        <Icon name='edit' containerStyle={{width: 100, height: 30,backgroundColor: '#fff'}}  color="#4169E1" 
                                       >
           </Icon>
         </View>
@@ -47,7 +49,7 @@ const styles= StyleSheet.create({
     marginRight: 10
   },
   titulo: {
-    fontSize: 20,
+    fontSize: 18,
     color: '#000',
     marginBottom: 10
   },
@@ -60,11 +62,16 @@ const styles= StyleSheet.create({
     flex: 2
   }, 
   valor:{
-    fontSize: 20,
+    fontSize: 16,
     fontWeight: 'bold'
   },
   fontes:{
     fontSize: 14
+  },
+  icone:{
+    flex: 1,
+    justifyContent: 'center',
+    marginRight:20
   }
 
 });

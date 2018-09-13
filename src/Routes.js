@@ -24,9 +24,9 @@ export default props => (
 		 >
 		 		<Scene key='ContaAdd' component={ContaAdd} title="Adicionar Cartão" hideNavBar = {false} navigationBarStyle={{backgroundColor: '#9400D3' }} />
 
-		<Scene key='Cartao' component={Cartao} title="Cartões" hideNavBar = {false}  navigationBarStyle={{backgroundColor: '#9400D3' }} />
-		<Scene key='CartaoAdd' component={CartaoAdd} title="Adicionar Cartão" hideNavBar = {false}  navigationBarStyle={{backgroundColor: '#9400D3' }} />
-		<Scene key='Conta' component={Conta} title="Contas" hideNavBar = {false}  navigationBarStyle={{backgroundColor: '#9400D3' }} />
+		<Scene key='Cartao' component={Cartao} title="Cartões" hideNavBar = {false}  navigationBarStyle={{backgroundColor: '#F08080' }} />
+		<Scene key='CartaoAdd' component={CartaoAdd} title="Adicionar Cartão" hideNavBar = {false}  navigationBarStyle={{backgroundColor: '#F08080' }} />
+		<Scene key='Conta' component={Conta} title="Contas" hideNavBar = {false}  navigationBarStyle={{backgroundColor: '#6A5ACD' }} />
 		<Scene key='ConsultaReceita' component={ConsultaReceita} title="Consulta Receita" hideNavBar = {false}  />
 		<Scene key='ConsultaDespesa' component={ConsultaDespesa} title="Consulta Despesa" hideNavBar = {false}  />
 		<Scene key='App' component={App} title="App" hideNavBar = {true}  initial />

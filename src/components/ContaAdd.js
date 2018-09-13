@@ -47,7 +47,7 @@ class ContaAdd  extends Component {
                             />
                         </View>                                                        
                             <View style={{ alignItems: 'flex-end', justifyContent: 'center' }}>
-                             <Button buttonStyle={{width: 100,backgroundColor: '#ff0000', borderWidth: 5,
+                             <Button buttonStyle={{width: 100,backgroundColor: '#6A5ACD', borderWidth: 5,
                                      borderRadius:20, borderColor: "transparent"}} title="Salvar" color="#fff" 
                                      titleStyle={{ fontWeight: "700", fontSize: 20}}  onPress={() => this.enviar()}/>
                             </View>

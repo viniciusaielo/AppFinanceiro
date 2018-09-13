@@ -30,7 +30,7 @@ class Despesa  extends Component {
     this.props.enviaDespesa({valor,data,desc,cat,conta});
     this.props.modificaValorD('');
     this.props.modificaDescD('');
-    this.props.modificaDataD('15-05-2016');
+    
     this.props.modificaCatD('Salario');
     this.props.modificaContaD('Carteira');
     
@@ -91,7 +91,7 @@ class Despesa  extends Component {
                                 date={this.props.dataD}
                                 mode="date"
                                 placeholder = 'selecione a data'
-                                format='DD-MM-YYYY'
+                                format='MM-DD-YYYY'
                                 minDate='01-01-1970'
                                 maxDate='30-12-2100'
                                 confirmBtnText = 'Confirmar'

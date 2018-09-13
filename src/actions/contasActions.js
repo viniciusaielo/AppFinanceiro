@@ -9,7 +9,9 @@ import {
    FECHAMENTO,
    DISPONIVEL,
    BANDEIRA,
-   MODIFICA_CONTA_CARTAO    
+   MODIFICA_CONTA_CARTAO,
+   LISTA_CONTA_USUARIO,
+   LISTA_CARTAO_USUARIO    
 } from './types';
 
 export const modificaTitulo = (texto) => {
@@ -77,8 +79,8 @@ export const enviaConta = ({titulo,saldo}) => {
 
         return dispatch => {
             
-            firebase.database().ref(`/conta/${titulo}`)
-            .push({saldo})
+            firebase.database().ref(`/conta`)
+            .push({titulo,saldo})
             .then(alert("Conta Salva"))
             .catch(erro => console.log(erro.message, dispatch))
         }
@@ -91,8 +93,8 @@ export const enviaCartao = ({limite,dispo,desc,venc,fec,bandeira,conta}) => {
 
     return dispatch => {
          
-        firebase.database().ref(`/cartao/${bandeira}/${conta}`)
-        .push({desc,limite, dispo,venc, fec})
+        firebase.database().ref(`/cartao`)
+        .push({bandeira,conta,desc,limite, dispo,venc, fec})
         .then(alert("Cartão Salvo"))
         .catch(erro => alert(erro.message, dispatch))
 
@@ -102,3 +104,30 @@ export const enviaCartao = ({limite,dispo,desc,venc,fec,bandeira,conta}) => {
     
 
 }
+export const consultaConta = () => {
+   
+
+    return (dispatch) => {
+      
+
+        firebase.database().ref(`/conta`)
+            .on("value", snapshot => {
+                dispatch({ type: LISTA_CONTA_USUARIO, payload: snapshot.val() })
+            })
+    }  
+}
+
+export const consultaCartao = () => {
+   
+
+    return (dispatch) => {
+      
+
+        firebase.database().ref(`/cartao`)
+            .on("value", snapshot => {
+                dispatch({ type: LISTA_CARTAO_USUARIO, payload: snapshot.val() })
+            })
+    }  
+}
+
+

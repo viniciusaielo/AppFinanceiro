@@ -4,13 +4,13 @@ import {
   TouchableHighlight,
   Image,
   View,
-  Text, StatusBar
+  Text
 } from 'react-native';
 import {
  Actions
 } from 'react-native-router-flux';
 import {Icon} from 'react-native-elements';
-import { Container, Header, Content, Left, Body} from 'native-base';
+import {  Header, Left, Body} from 'native-base';
 import { DrawerNavigator, DrawerActions} from 'react-navigation';
 
 

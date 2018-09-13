@@ -29,7 +29,7 @@ class Receita  extends Component {
       this.props.enviaReceita({valor,data,desc,cat,conta});
       this.props.modificaValor('');
       this.props.modificaDesc('');
-      this.props.modificaData('15-05-2016');
+     
       this.props.modificaCat('Salario');
       this.props.modificaConta('Carteira');
       
@@ -91,9 +91,9 @@ class Receita  extends Component {
                                 date={this.props.data}
                                 mode="date"
                                 placeholder = 'selecione a data'
-                                format='DD-MM-YYYY'
+                                format='MM-DD-YYYY'
                                 minDate='01-01-1970'
-                                maxDate='30-12-2100'
+                                maxDate='12-31-2100'
                                 confirmBtnText = 'Confirmar'
                                 cancelBtnText = 'Cancelar'
                                 customStyles={{ dateIcon : {position: 'absolute', left: 0, top: 4, marginLeft: 0 }, dateInput: {marginLeft: 36}}}

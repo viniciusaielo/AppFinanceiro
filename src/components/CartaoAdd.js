@@ -46,7 +46,7 @@ class CartaoAdd  extends Component {
         return(
             <Container>
                
-                 <Header style={{ backgroundColor: '#fff'}}  >
+                 <Header androidStatusBarColor='#CD5C5C' style={{height: 50, backgroundColor: '#F08080'}} >
                    
                 </Header>
                 <View style={{ flex: 1}}>
@@ -126,15 +126,10 @@ class CartaoAdd  extends Component {
                         </View>
                                               
                         <View style={{ flexDirection: 'row', justifyContent:'space-around'}} >
-                            <View style={{ margin: 10, justifyContent: 'center' }}>
-                                <CheckBox title='Receita Fixa' checkedIcon='dot-circle-o' uncheckedIcon='circle-o'
-                                    checked={this.state.checked}  checkedColor='#20b2aa' 
-                                    onPress={() => this.verificar()}
-                                    />
-                            </View>
+                           
                                
-                            <View style={{ alignItems: 'flex-end', justifyContent: 'center' }}>
-                             <Button buttonStyle={{width: 100,backgroundColor: '#20b2aa', borderWidth: 5,
+                            <View style={{ alignItems: 'flex-end'}}>
+                             <Button buttonStyle={{width: 100,backgroundColor: '#F08080', borderWidth: 5,
                                      borderRadius:20, borderColor: "transparent"}} title="Salvar" color="#fff" 
                                      titleStyle={{ fontWeight: "700", fontSize: 20}}  onPress={() => this.enviar()} />
                             </View>
