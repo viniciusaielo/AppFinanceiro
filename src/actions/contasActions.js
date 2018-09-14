@@ -118,11 +118,8 @@ export const consultaConta = () => {
 }
 
 export const consultaCartao = () => {
-   
 
     return (dispatch) => {
-      
-
         firebase.database().ref(`/cartao`)
             .on("value", snapshot => {
                 dispatch({ type: LISTA_CARTAO_USUARIO, payload: snapshot.val() })

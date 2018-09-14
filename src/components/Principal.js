@@ -62,8 +62,8 @@ export default class Principal extends Component {
             
           </View>
           <View style = {styles.legenda}>
-            <Text  style = {{ marginRight:55 }}> Receitas </Text>
-            <Text  style = {{ marginLeft:55 }}> Despesas </Text>
+            <Text  style = {{ marginRight:60 , marginTop: -10 }}> Receitas </Text>
+            <Text  style = {{ marginLeft:60 , marginTop: -10 }}> Despesas </Text>
           </View>
 
           <View style = {styles.submenu}>
@@ -92,8 +92,8 @@ export default class Principal extends Component {
             </TouchableHighlight>
         </View>
         <View style = {styles.legenda}>
-          <Text style = {{ marginRight:55, marginTop: -10 }} > Cartões </Text>
-          <Text  style = {{ marginLeft:55, marginTop: -10 }} > Contas </Text>
+          <Text style = {{ marginRight:65, marginTop: -20 }} > Cartões </Text>
+          <Text  style = {{ marginLeft:55, marginTop: -20 }} > Contas </Text>
         </View>
       </View>
     </View>
@@ -103,21 +103,22 @@ export default class Principal extends Component {
 
 const styles = StyleSheet.create({
   logo:{
-    alignItems: 'center',
-    marginTop: 10
+    alignItems: 'center'
   },
   menu: {
     alignItems: 'center',
-    flex: 5
+    flex: 5,
+    marginTop: 10
   },
   submenu: {
-    flexDirection: 'row'
+    flexDirection: 'row',
+    margin: 15
   },
   legenda: {
     flexDirection: 'row'
   },
   img:{
-    marginHorizontal:30,
+    marginHorizontal:40,
     width: 110, height: 110
   }
 })

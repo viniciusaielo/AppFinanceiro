@@ -5,11 +5,13 @@ import ContaReducer from './ContaReducer';
 import ListaReceitasReducer from './ListaReceitasReducer';
 import ListaDespesasReducer from './ListaDespesasReducer';
 import ListaContaReducer from './ListaContaReducer';
+import ListaCartaoReducer from './ListaCartaoReducer';
 export default combineReducers({
 	EventoReducer: EventoReducer,
 	ContaReducer: ContaReducer,
 	AppReducer: AppReducer,
 	ListaReceitasReducer,
 	ListaDespesasReducer,
-	ListaContaReducer
+	ListaContaReducer,
+	ListaCartaoReducer
 });

@@ -20,7 +20,8 @@ const INITIAL_STATE = {
     venc: '',
     desc: '',
     bandeira: '',
-    conta_cartao: ''
+    conta_cartao: '',
+    contas: ['Bradesco', 'Carteira']
 }
 
 export default (state = INITIAL_STATE, action) => {

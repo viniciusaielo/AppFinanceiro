@@ -11,7 +11,7 @@ import { Icon } from 'react-native-elements';
 
 const despesa = require('../imgs/despesa.png');
 
-export default class Itens extends Component {
+export default class ItensD extends Component {
   render() {
     return (
       <View style={styles.principal}>

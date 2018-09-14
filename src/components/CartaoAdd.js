@@ -1,20 +1,22 @@
 import React, {Component} from 'react';
 import { View, TextInput, Image, Text, Picker } from 'react-native';
 import { connect } from 'react-redux';
-import {Button, CheckBox} from 'react-native-elements';
+import {Button} from 'react-native-elements';
 
 import { modificaDispo, modificaFec, modificaDesc,
      modificaLimite, modificaVenc, modificaBandeira, modificaConta, enviaCartao } 
      from '../actions/contasActions';
-import DatePicker from 'react-native-datepicker';
 import { Container, Header} from 'native-base';
+import ContasItens from './ContasItens'
 
 
 class CartaoAdd  extends Component {
    constructor(props) {
     super(props);
     this.state = {checked: false};
+
   }
+  
   verificar(){
     this.setState({ checked: !this.state.checked })
     if(this.state.checked == true ){
@@ -49,7 +51,7 @@ class CartaoAdd  extends Component {
                  <Header androidStatusBarColor='#CD5C5C' style={{height: 50, backgroundColor: '#F08080'}} >
                    
                 </Header>
-                <View style={{ flex: 1}}>
+                <View style={{ flex: 1, marginTop: 20}}>
                     <View style={{ flex: 4}}>
                         <View style={{ margin: 10, justifyContent: 'center' }}>
                             <TextInput 
@@ -76,24 +78,24 @@ class CartaoAdd  extends Component {
                                 onChangeText={text => this.props.modificaDesc(text)} 
                             />
                         </View>
-                        <View style={{ justifyContent:'space-around', flexDirection:'row' }}>
+                        <View style={{ justifyContent:'space-around', flexDirection:'row',alignItems:'center' }}>
                             <View style={{flexDirection:'row', alignItems:'center'}}>
                                 <Text style={{fontSize:18}}> Fechamento: </Text>
                                 <TextInput 
                                     value={this.props.fec} 
                                     keyboardType = 'numeric'
-                                    placeholder="Dia" style={{ fontSize: 18, height: 45, width:50 }} 
+                                    placeholder=" Dia" style={{ fontSize: 18, height: 45, width:50 }} 
                                     placeholderTextColor='#808080'
                                     multiline = {true}
                                     onChangeText={text => this.props.modificaFec(text)} 
                                 />  
                             </View>
-                            <View  style={{flexDirection:'row', alignItems:'center'}}>
-                                <Text style={{fontSize:18}}>Vencimento:</Text>                
+                            <View  style={{flexDirection:'row', alignItems:'center', marginLeft: -10}}>
+                                <Text style={{fontSize:18}}>Vencimento: </Text>                
                                 <TextInput 
                                     value={this.props.venc} 
                                     keyboardType = 'numeric'
-                                    placeholder="Dia" style={{ fontSize: 18, height: 45, width: 50 }} 
+                                    placeholder=" Dia" style={{ fontSize: 18, height: 45, width: 50 }} 
                                     placeholderTextColor='#808080'
                                     multiline = {true}
                                     onChangeText={text => this.props.modificaVenc(text)} 
@@ -102,16 +104,7 @@ class CartaoAdd  extends Component {
                         </View>
                         
                         <View style={{ margin: 10,justifyContent: 'center' }}>
-                            <Picker
-                                style={{ transform: [ {scaleX: 1}, {scaleY: 1.5}]}}
-                                selectedValue={this.props.bandeira}
-                                onValueChange={text => { this.props.modificaBandeira(text) }} 
-                           >
-                                <Picker.Item label='Bandeira do Cartão'  />
-                                <Picker.Item label='Elo' value='Elo' />
-                                <Picker.Item label='Mas' value='Mas' />
-                                <Picker.Item label='Visa' value='Visa' />
-                            </Picker>
+                           <ContasItens/>
                         </View>
                          <View style={{ margin: 10, justifyContent: 'center' }}>
                             <Picker
@@ -149,7 +142,7 @@ const mapStateToProps = state => (
         desc:state.ContaReducer.desc,
         fec:state.ContaReducer.fec,
         bandeira:state.ContaReducer.bandeira,
-        conta_cartao:state.ContaReducer.conta_cartao
+        conta_cartao: state.ContaReducer.conta_cartao
     }
 )
 

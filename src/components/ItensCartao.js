@@ -9,24 +9,28 @@ import {
 } from 'react-native';
 import { Icon } from 'react-native-elements';
 
-const conta = require('../imgs/carteira.png');
+const cartao = require('../imgs/cartao.png');
 
-export default class Itens extends Component {
+export default class ItensCartao extends Component {
   render() {
+    const data = new Date();
+    const vencimento =  (data.getMonth()+1) +'-' + this.props.data.venc +  '-' + data.getFullYear()
+    const fechamento =  (data.getMonth()+1) +'-' + this.props.data.fec +  '-' + data.getFullYear()
     return (
       <View style={styles.principal}>
-        
         <View style={styles.detalhes2}>
-          <Text style={styles.titulo}>{this.props.data.titulo}</Text>
-          
+          <Image style = {{height: 50, width: 50}}source ={cartao}/>
+          <Text style={styles.titulo}>{this.props.data.bandeira}</Text>
         </View>
         <View style={styles.detalhes}>
-          <Text style={styles.valor}>SALDO: R$ {this.props.data.saldo}</Text>
-         
+          <Text style={styles.dispo}>Saldo Disponivel: R$ {this.props.data.dispo}</Text>
+          <Text style={styles.limite}>Limite: R$ {this.props.data.limite}</Text>            
+          <Text style={styles.valor}>Vencimento: {vencimento}</Text>
+          <Text style={styles.valor}>Fechamento: {fechamento}</Text>         
         </View>
         <View style={styles.icone}>
-        <Icon name='edit' containerStyle={{width: 100, height: 30,backgroundColor: '#fff'}}  color="#4169E1" 
-                                      >
+          <Icon name='edit' containerStyle={{width: 100, height: 30,backgroundColor: '#fff'}}  color="#4169E1" 
+             >
           </Icon>
         </View>
       </View>
@@ -49,23 +53,31 @@ const styles= StyleSheet.create({
   titulo: {
     fontSize: 18,
     color: '#000',
-
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    marginLeft:10
   },
   detalhes: {
     flex: 5,
-    marginLeft: 15,
-    alignItems: 'center',
+    marginLeft: -60,
     justifyContent: 'center'
   }, 
   detalhes2: {
     flex: 3,
-    
     justifyContent: 'center'
   }, 
   valor:{
     fontSize: 16,
     fontWeight: 'bold'
+  },
+  dispo:{
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#008B8B'
+  },
+  limite:{
+    fontSize: 18,
+    fontWeight: 'bold',
+    color:'#FF8C00'
   },
   fontes:{
     fontSize: 14
@@ -73,7 +85,8 @@ const styles= StyleSheet.create({
   icone:{
     flex: 1,
     justifyContent: 'center',
-    marginRight:20
+    marginLeft:-80
+
   }
 
 });

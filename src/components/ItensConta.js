@@ -11,7 +11,7 @@ import { Icon } from 'react-native-elements';
 
 const conta = require('../imgs/carteira.png');
 
-export default class Itens extends Component {
+export default class ItensConta extends Component {
   render() {
     return (
       <View style={styles.principal}>
