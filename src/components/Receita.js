@@ -6,6 +6,7 @@ import {Button, CheckBox} from 'react-native-elements';
 import { modificaValor, modificaData, modificaDesc, modificaCat, modificaConta, checked, enviaReceita } from '../actions/eventoActions';
 import DatePicker from 'react-native-datepicker';
 import { Container, Header, Content, Left} from 'native-base';
+import ContasItensR from './ContasItensR';
 
 
 class Receita  extends Component {
@@ -31,7 +32,7 @@ class Receita  extends Component {
       this.props.modificaDesc('');
      
       this.props.modificaCat('Salario');
-      this.props.modificaConta('Carteira');
+      this.props.modificaConta('');
       
   }
  
@@ -42,10 +43,10 @@ class Receita  extends Component {
                  <Header androidStatusBarColor='#00CED1' style={{ backgroundColor: '#fff'}}  >
                    
                 </Header>
-                <View style={{ flex: 1,  padding: 10}}>
+                <View style={{ flex: 1,  padding: 10, alignItems: 'center', marginTop:10}}>
 
                     <View style={{ flex: 4,  justifyContent: 'center', position: 'absolute' }}>
-                        <View style={{ margin: 10, justifyContent: 'center' }}>
+                        <View style={{ margin: 15, justifyContent: 'center' }}>
                             <TextInput 
                                 value={this.props.valor} placeholder="Insira o valor" 
                                 keyboardType = 'numeric'
@@ -53,7 +54,7 @@ class Receita  extends Component {
                                 onChangeText={text => this.props.modificaValor(text)}
                              />
                         </View>
-                         <View style={{ margin: 10, justifyContent: 'center' }}>
+                         <View style={{ margin: 15, justifyContent: 'center' }}>
                             <TextInput 
                                 value={this.props.desc} 
                                 placeholder="Descrição" style={{ fontSize: 20, height: 45 }} 
@@ -62,7 +63,7 @@ class Receita  extends Component {
                                 onChangeText={text => this.props.modificaDesc(text)} 
                             />
                         </View>
-                         <View style={{ margin: 10,justifyContent: 'center' }}>
+                         <View style={{ margin: 15,justifyContent: 'center' }}>
                             <Picker
                                 style={{ transform: [ {scaleX: 1}, {scaleY: 1.5}]}}
                                 selectedValue={this.props.cat}
@@ -74,18 +75,10 @@ class Receita  extends Component {
                                 <Picker.Item label='Emprestimo' value='Emprestimo' />
                             </Picker>
                         </View>
-                         <View style={{ margin: 10, justifyContent: 'center' }}>
-                            <Picker
-                                style={{ transform: [ {scaleX: 1}, {scaleY: 1.5}]}}
-                                selectedValue={this.props.conta}
-                                onValueChange={text => { this.props.modificaConta(text) }} 
-                            >
-                                <Picker.Item label='Carteira' value='Carteira' />
-                                <Picker.Item label='Banco' value='Banco' />
-                                <Picker.Item label='Poupança' value='Poupança' />                             
-                            </Picker>
+                         <View style={{ margin: 15, justifyContent: 'center' }}>
+                            <ContasItensR/>
                         </View>
-                         <View style={{ margin: 10, justifyContent: 'center' }}>
+                         <View style={{ margin: 15, justifyContent: 'center' }}>
                             <DatePicker
                                 style={{width: 320}}
                                 date={this.props.data}
@@ -101,7 +94,7 @@ class Receita  extends Component {
                             />
                         </View>
                         <View style={{ flexDirection: 'row'}} >
-                            <View style={{ margin: 10, justifyContent: 'center' }}>
+                            <View style={{ margin: 15, justifyContent: 'center' }}>
                                 <CheckBox title='Receita Fixa' checkedIcon='dot-circle-o' uncheckedIcon='circle-o'
                                     checked={this.state.checked}  checkedColor='#20b2aa' 
                                     onPress={() => this.verificar()}

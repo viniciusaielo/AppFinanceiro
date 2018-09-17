@@ -11,7 +11,8 @@ import {
    BANDEIRA,
    MODIFICA_CONTA_CARTAO,
    LISTA_CONTA_USUARIO,
-   LISTA_CARTAO_USUARIO    
+   LISTA_CARTAO_USUARIO ,
+   LISTA_CATEGORIA_USUARIO   
 } from './types';
 
 export const modificaTitulo = (texto) => {
@@ -128,3 +129,15 @@ export const consultaCartao = () => {
 }
 
 
+export const consultaCategoria = () => {
+   
+
+    return (dispatch) => {
+      
+
+        firebase.database().ref(`/categoria`)
+            .on("value", snapshot => {
+                dispatch({ type: LISTA_CATEGORIA_USUARIO, payload: snapshot.val() })
+            })
+    }  
+}

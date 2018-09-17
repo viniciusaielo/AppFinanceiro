@@ -13,6 +13,7 @@ import Principal from './Principal';
 import ConsultaDespesa from './ConsultaDespesa';
 import Cartao from './Cartao';
 import Conta from './Conta';
+import Categorias from './Categorias'
 import { Container, Header, Content } from 'native-base';
 
 
@@ -25,7 +26,7 @@ export default class App extends Component {
 }
 const CustomDrawer = (props) => (
   <Container>
-    <Header androidStatusBarColor = '#4682B4'>
+    <Header androidStatusBarColor = '#4682B4' style={{height: 50, backgroundColor: '#87CEEB'}}>
       
     </Header>
     < Content >
@@ -52,6 +53,9 @@ const MyApp = DrawerNavigator({
     Contas: {
       screen: Conta
 
+    },
+    Categorias: {
+      screen: Categorias
     }
   },
     {

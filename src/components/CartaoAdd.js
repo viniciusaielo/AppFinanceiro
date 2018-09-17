@@ -107,15 +107,7 @@ class CartaoAdd  extends Component {
                            <ContasItens/>
                         </View>
                          <View style={{ margin: 10, justifyContent: 'center' }}>
-                            <Picker
-                                style={{ transform: [ {scaleX: 1}, {scaleY: 1.5}]}}
-                                selectedValue={this.props.conta_cartao}
-                                onValueChange={text => { this.props.modificaConta(text) }} 
-                            >
-                                <Picker.Item label='Carteira' value='Carteira' />
-                                <Picker.Item label='Banco' value='Banco' />
-                                <Picker.Item label='Poupança' value='Poupança' />                             
-                            </Picker>
+                            <ContasItens/>
                         </View>
                                               
                         <View style={{ flexDirection: 'row', justifyContent:'space-around'}} >

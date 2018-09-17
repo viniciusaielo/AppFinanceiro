@@ -32,3 +32,4 @@ export const LISTA_RECEITA_USUARIO = 'consulta_receita';
 export const LISTA_DESPESA_USUARIO = 'consulta_despesa';
 export const LISTA_CONTA_USUARIO = 'consulta_conta';
 export const LISTA_CARTAO_USUARIO = 'consulta_cartao';
+export const LISTA_CATEGORIA_USUARIO = 'consulta_categortia';

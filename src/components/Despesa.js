@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { modificaValorD, modificaDataD, modificaDescD, modificaCatD, modificaContaD, checkedD, enviaDespesa } from '../actions/eventoActions';
 import DatePicker from 'react-native-datepicker';
 import { Container, Header, Content, Left} from 'native-base';
+import ContasItensD from './ContasItensD';
 
 
 class Despesa  extends Component {
@@ -29,10 +30,9 @@ class Despesa  extends Component {
 
     this.props.enviaDespesa({valor,data,desc,cat,conta});
     this.props.modificaValorD('');
-    this.props.modificaDescD('');
-    
-    this.props.modificaCatD('Salario');
-    this.props.modificaContaD('Carteira');
+    this.props.modificaDescD(''); 
+    this.props.modificaCatD('');
+    this.props.modificaContaD('');
     
 }
     
@@ -42,9 +42,9 @@ class Despesa  extends Component {
                 <Header  androidStatusBarColor='#DC143C' style={{ backgroundColor: '#fff'}} >
                 
                 </Header>
-                <View style={{ flex: 1, padding: 10 }}>
+                <View style={{ flex: 1, padding: 10, alignItems: 'center', marginTop:10 }}>
                     <View style={{ flex: 4,  justifyContent: 'center', position: 'absolute' }}>
-                        <View style={{ margin: 10, justifyContent: 'center' }}>
+                        <View style={{ margin: 15, justifyContent: 'center' }}>
                             <TextInput 
                                 value={this.props.valorD} placeholder="Insira o valor" 
                                 keyboardType = 'numeric'
@@ -52,7 +52,7 @@ class Despesa  extends Component {
                                 onChangeText={text => this.props.modificaValorD(text)}
                              />
                         </View>
-                         <View style={{ margin: 10, justifyContent: 'center' }}>
+                         <View style={{ margin: 15, justifyContent: 'center' }}>
                             <TextInput 
                                 value={this.props.descD} 
                                 placeholder="Descrição" style={{ fontSize: 20, height: 45 }} 
@@ -61,7 +61,7 @@ class Despesa  extends Component {
                                 onChangeText={text => this.props.modificaDescD(text)} 
                             />
                         </View>
-                         <View style={{ margin: 10,justifyContent: 'center' }}>
+                         <View style={{ margin: 15,justifyContent: 'center' }}>
                             <Picker
                                 style={{ transform: [ {scaleX: 1}, {scaleY: 1.5}]}}
                                 selectedValue={this.props.catD}
@@ -74,18 +74,10 @@ class Despesa  extends Component {
                                 <Picker.Item label='Vestimentas' value='Vestimentas' />
                             </Picker>
                         </View>
-                         <View style={{ margin: 10, justifyContent: 'center' }}>
-                            <Picker
-                                style={{ transform: [ {scaleX: 1}, {scaleY: 1.5}]}}
-                                selectedValue={this.props.contaD}
-                                onValueChange={text => { this.props.modificaContaD(text) }} 
-                            >
-                                <Picker.Item label='Carteira' value='Carteira' />
-                                <Picker.Item label='Banco' value='Banco' />
-                                <Picker.Item label='Poupança' value='Poupança' />
-                            </Picker>
+                         <View style={{ margin: 15, justifyContent: 'center' }}>
+                            <ContasItensD/>
                         </View>
-                         <View style={{ margin: 10, justifyContent: 'center' }}>
+                         <View style={{ margin: 15, justifyContent: 'center' }}>
                             <DatePicker
                                 style={{width: 320}}
                                 date={this.props.dataD}
@@ -101,7 +93,7 @@ class Despesa  extends Component {
                             />
                         </View>
                         <View style={{ flexDirection: 'row'}} >
-                            <View style={{ margin: 10, justifyContent: 'center' }}>
+                            <View style={{ margin: 15, justifyContent: 'center' }}>
                                 <CheckBox title='Despesa Fixa' checkedIcon='dot-circle-o' uncheckedIcon='circle-o'
                                     checked={this.state.checked}  checkedColor='#ff0000' 
                                     onPress={() => this.verificar()}

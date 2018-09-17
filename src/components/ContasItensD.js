@@ -4,15 +4,16 @@ import React, { Component } from 'react';
 import {
   Picker, ListView
 } from 'react-native';
-import {consultaConta,modificaConta } from '../actions/contasActions';
+import {consultaConta } from '../actions/contasActions';
 import _ from 'lodash';
 import { connect } from 'react-redux';
+import { modificaContaD } from '../actions/eventoActions';
 
 
 class ContasItens extends Component {
   constructor(props) {
     super(props);
-    this.state = {conta: ''};
+    this.state = {contaD: ''};
   }
   componentWillMount(){
     this.props.consultaConta()
@@ -23,11 +24,10 @@ componentWillReceiveProps(nextProps) {
     this.criaFonteDeDados( nextProps.contas )
     
  }
- modificaConta(text){
-  this.setState({conta: text})
-  this.props.modificaConta(text)
+modificaContaD(text){
+  this.setState({contaD: text})
+  this.props.modificaContaD(text)
 }
-
 criaFonteDeDados( contas ) {
     var itens = []
     for( var i = 0; i < contas.length; i++){
@@ -40,10 +40,10 @@ criaFonteDeDados( contas ) {
     return (
         <Picker
           style={{ transform: [ {scaleX: 1}, {scaleY: 1.5}]}}
-          selectedValue={this.state.conta}
-          onValueChange={text => { this.modificaConta(text) }} 
+          selectedValue={this.state.contaD}
+          onValueChange={text => { this.modificaContaD(text) }} 
          >
-            <Picker.Item label='Bandeira do Cartão' value='' />
+            <Picker.Item label='Selecionar Conta' value='' />
             { this.itens.map(item => (<Picker.Item label={item} value={item} />))}
         </Picker>
 
@@ -51,6 +51,7 @@ criaFonteDeDados( contas ) {
   }
 }
 const mapStateToProps = state => {
+
   const contas = _.map(state.ListaContaReducer, (val, uid) => {
       return { ...val, uid }
   })
@@ -60,5 +61,5 @@ const mapStateToProps = state => {
 
 
 
-export default connect(mapStateToProps,{consultaConta,modificaConta})(ContasItens);
+export default connect(mapStateToProps,{consultaConta,modificaContaD })(ContasItens);
 
