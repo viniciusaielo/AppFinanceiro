@@ -43,7 +43,7 @@ criaFonteDeDados( contas ) {
           selectedValue={this.state.conta}
           onValueChange={text => { this.modificaConta(text) }} 
          >
-            <Picker.Item label='Bandeira do Cartão' value='' />
+            <Picker.Item label='Selecionar Conta' value='' />
             { this.itens.map(item => (<Picker.Item label={item} value={item} />))}
         </Picker>
 

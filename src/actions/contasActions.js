@@ -130,11 +130,8 @@ export const consultaCartao = () => {
 
 
 export const consultaCategoria = () => {
-   
 
     return (dispatch) => {
-      
-
         firebase.database().ref(`/categoria`)
             .on("value", snapshot => {
                 dispatch({ type: LISTA_CATEGORIA_USUARIO, payload: snapshot.val() })

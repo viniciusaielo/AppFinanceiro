@@ -7,6 +7,7 @@ import { modificaValorD, modificaDataD, modificaDescD, modificaCatD, modificaCon
 import DatePicker from 'react-native-datepicker';
 import { Container, Header, Content, Left} from 'native-base';
 import ContasItensD from './ContasItensD';
+import CategoriaItensD from './CategoriaItensD';
 
 
 class Despesa  extends Component {
@@ -62,17 +63,7 @@ class Despesa  extends Component {
                             />
                         </View>
                          <View style={{ margin: 15,justifyContent: 'center' }}>
-                            <Picker
-                                style={{ transform: [ {scaleX: 1}, {scaleY: 1.5}]}}
-                                selectedValue={this.props.catD}
-                                onValueChange={text => { this.props.modificaCatD(text) }} 
-                                itemStyle={{ fontSize: 30 }}
-                            >
-                                <Picker.Item label='Alimentação' value='Alimentacao' />
-                                <Picker.Item label='Luz' value='Luz' />
-                                <Picker.Item label='Agua' value='Agua' />
-                                <Picker.Item label='Vestimentas' value='Vestimentas' />
-                            </Picker>
+                            <CategoriaItensD/>
                         </View>
                          <View style={{ margin: 15, justifyContent: 'center' }}>
                             <ContasItensD/>

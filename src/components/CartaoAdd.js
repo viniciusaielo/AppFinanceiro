@@ -104,7 +104,18 @@ class CartaoAdd  extends Component {
                         </View>
                         
                         <View style={{ margin: 10,justifyContent: 'center' }}>
-                           <ContasItens/>
+                            <Picker
+                                style={{ transform: [ {scaleX: 1}, {scaleY: 1.5}]}}
+                                selectedValue={this.props.bandeira}
+                                onValueChange={text => { this.props.modificaBandeira(text) }} 
+                                >
+                                    <Picker.Item label='Bandeira do Cartão' value='' />
+                                    <Picker.Item label='Master' value='Master' />
+                                    <Picker.Item label='Visa' value='Visa' />
+                                    <Picker.Item label='Elo' value='Elo' />
+                                   
+                                   
+                            </Picker>
                         </View>
                          <View style={{ margin: 10, justifyContent: 'center' }}>
                             <ContasItens/>

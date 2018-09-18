@@ -6,6 +6,7 @@ import ListaReceitasReducer from './ListaReceitasReducer';
 import ListaDespesasReducer from './ListaDespesasReducer';
 import ListaContaReducer from './ListaContaReducer';
 import ListaCartaoReducer from './ListaCartaoReducer';
+import ListaCategoriaReducer from './ListaCategoriaReducer'
 export default combineReducers({
 	EventoReducer: EventoReducer,
 	ContaReducer: ContaReducer,
@@ -13,5 +14,6 @@ export default combineReducers({
 	ListaReceitasReducer,
 	ListaDespesasReducer,
 	ListaContaReducer,
-	ListaCartaoReducer
+	ListaCartaoReducer,
+	ListaCategoriaReducer
 });

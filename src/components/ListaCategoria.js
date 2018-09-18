@@ -3,34 +3,73 @@
 import React, { Component } from 'react';
 import {
   Text,
-  Image,
+  TextInput ,
   StyleSheet,
   View
 } from 'react-native';
+import firebase from 'firebase'
 import { Icon } from 'react-native-elements';
+import PopupDialog, {DialogButton} from 'react-native-popup-dialog';
+import ContaAdd from './ContaAdd'
 
-const despesa = require('../imgs/despesa.png');
 
-export default class ItensD extends Component {
+export default class ListaCategoria extends Component {
+  constructor(props){
+    super(props)
+    
+  }
+  componentWillMount(){
+    this.editar = false;
+    this.texto()
+  }
+
+  delete(){
+    id = this.props.data.uid
+    firebase.database().ref(`/categoria/${id}`).remove();
+    
+  }
+  texto(){
+    if( this.editar){
+      return(
+        <TextInput style={styles.titulo}>{this.props.data.categoria}</TextInput>
+      )
+    } 
+    else {return(<Text style={styles.titulo}>{this.props.data.categoria}</Text>)}
+  }
+  componentWillReceiveProps(nextProps) {
+    
+    this.editar = true;
+    
+ }
+  Editar(){
+    this.componentWillReceiveProps()
+    
+}
   render() {
     return (
       <View style={styles.principal}>
-        <View style={styles.foto}>
-          <Image style = {{height: 50, width: 50}}source ={despesa}/>
-        </View>
-        <View style={styles.detalhes2}>
-          <Text style={styles.titulo}>{this.props.data.cat}</Text>
-          
-          <Text style={styles.fontes}>{this.props.data.data}</Text>
-        </View>
         <View style={styles.detalhes}>
-          <Text style={styles.valor}>R$ {this.props.data.valor}</Text>
+          
+        <Text style={styles.titulo}>{this.props.data.categoria}</Text>
+         
         </View>
         <View style={styles.icone}>
-        <Icon name='edit' containerStyle={{width: 100, height: 30,backgroundColor: '#fff'}}  color="#4169E1" 
-                                      >
+          <Icon name='edit' 
+            containerStyle={{width: 100, height: 30,backgroundColor: '#fff'}}  
+            color="#4169E1" onPress={() => {
+              this.Editar()
+              }} >
           </Icon>
         </View>
+        <View style={styles.icone2}>
+          <Icon name='delete'
+            containerStyle={{width: 100, height: 30,backgroundColor: '#fff'}}  
+            color="#FF0000" onPress={() => {
+              this.delete()
+              }} >
+          </Icon>
+        </View>
+       
       </View>
 
     );
@@ -45,33 +84,26 @@ const styles= StyleSheet.create({
     padding: 10,
     flexDirection: 'row'
   },
-  foto:{
-    marginRight: 10
-  },
   titulo: {
-    fontSize: 18,
+    fontSize: 20,
     color: '#000',
-    marginBottom: 10
+    justifyContent: 'center'
   },
   detalhes: {
     flex: 2,
-    alignItems: 'center',
     justifyContent: 'center'
   }, 
-  detalhes2: {
-    flex: 2
-  }, 
-  valor:{
-    fontSize: 16,
-    fontWeight: 'bold'
-  },
+ 
   fontes:{
     fontSize: 14
   },
   icone:{
-    flex: 1,
-    justifyContent: 'center',
-    marginRight:20
+    marginRight: -10,
+    justifyContent: 'center'
+  },
+  icone2:{
+    marginLeft: -10,
+    justifyContent: 'center'
   }
 
 });

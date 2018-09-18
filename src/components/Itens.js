@@ -8,10 +8,16 @@ import {
   View
 } from 'react-native';
 import { Icon } from 'react-native-elements';
+import firebase from 'firebase'
 
 const receita = require('../imgs/receita.png');
 
 export default class Itens extends Component {
+  delete(){
+    id = this.props.data.uid
+    firebase.database().ref(`/receita/data/${id}`).remove();
+    
+  }
   render() {
     return (
       <View style={styles.principal}>
@@ -30,6 +36,13 @@ export default class Itens extends Component {
         <View style={styles.icone}>
         <Icon name='edit' containerStyle={{width: 100, height: 30,backgroundColor: '#fff'}}  color="#4169E1" 
                                       >
+          </Icon>
+        
+          <Icon name='delete'
+            containerStyle={{width: 100, height: 30,backgroundColor: '#fff'}}  
+            color="#FF0000" onPress={() => {
+              this.delete()
+              }} >
           </Icon>
         </View>
       </View>
@@ -65,6 +78,10 @@ const styles= StyleSheet.create({
   valor:{
     fontSize: 16,
     fontWeight: 'bold'
+  },
+  icone2:{
+    marginLeft: -10,
+    justifyContent: 'center'
   },
   fontes:{
     fontSize: 14
