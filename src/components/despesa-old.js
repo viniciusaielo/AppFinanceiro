@@ -1,43 +1,47 @@
 import React, {Component} from 'react';
-import { View, ListView, Text, ActivityIndicator} from 'react-native';
+import { View, Text,  ListView, ActivityIndicator } from 'react-native';
 import { connect } from 'react-redux';
-import { Icon} from 'react-native-elements';
-import { modificaValor, modificaData, modificaDesc, modificaCat, modificaConta, checked, consultaDespesa, consultaDataD } from '../actions/eventoActions';
+import { Icon } from 'react-native-elements';
 import DatePicker from 'react-native-datepicker';
-import {Container, Header, Left, Body} from 'native-base';
-import { DrawerActions} from 'react-navigation';
+import {Container, Header, Body, Left} from 'native-base';
+import {DrawerActions} from 'react-navigation';
+
+import _ from 'lodash'
 import {
     Actions
    } from 'react-native-router-flux';
+import { consultaReceita, consultaData} from '../actions/eventoActions';
+import Itens from './Itens';
 
-import ItensD from './ItensD';
-
-class ConsultaDespesa  extends Component {
+class ConsultaReceita  extends Component {
+   
     componentWillMount(){
         const date = new Date()
         const dia = date.getDate();
         const mes = date.getMonth() + 1;
         const ano = date.getFullYear();
         let data = mes + "/" + dia + "/"+ ano;
-
-        this.props.consultaDespesa(data)
-        this.criaFonteDeDados( this.props.despesas )
+      
+        this.props.consultaReceita(data);
+        this.criaFonteDeDados( this.props.receitas );
         this.loading = true;
-        this.data1 = '09-21-2018';
-        this.data2 = '09-29-2018';
+        this.data1 = '09/21/2016';
+        this.data2 = '09/29/2016';
         this.contador = 0;
         this.consultado = [];
 
      }
     componentWillReceiveProps(nextProps) {
-        this.criaFonteDeDados( nextProps.despesas )
+        this.criaFonteDeDados( nextProps.receitas )
         this.loading = false;
-        this.tamanho = nextProps.despesas.length ;
+        this.tamanho = nextProps.receitas.length ;
+        
      }
 
-    criaFonteDeDados( despesas ) {
+    criaFonteDeDados( receitas ) {
         const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 })
-        despesas.sort((a,b) => {
+        
+        receitas.sort((a,b) => {
             if (new Date(a.data) < new Date(b.data)){
                 return 1;
             }
@@ -46,10 +50,11 @@ class ConsultaDespesa  extends Component {
             }
             return 0;
         })
-        this.fonteDeDados = ds.cloneWithRows(despesas)
+        this.fonteDeDados = ds.cloneWithRows(receitas)
         
+     
     }
-    
+
     renderList(){
         if(this.loading) {
             return (
@@ -59,8 +64,8 @@ class ConsultaDespesa  extends Component {
         if(this.tamanho == 0) {
             return(
                 <View style={{ flex: 2, alignItems: 'center', justifyContent: 'center' }} >
-                    <Text> NENHUM REGISTRO ENCONTRADO </Text>
-                 </View>
+                     <Text> NENHUM REGISTRO ENCONTRADO </Text>
+                </View>
             )
         }
         return (
@@ -68,7 +73,7 @@ class ConsultaDespesa  extends Component {
                 enableEmptySections
                 dataSource={this.fonteDeDados}
                 renderRow={data => (
-                        <ItensD key ={data.uid} data ={data} />
+                        <Itens key ={data.uid} data ={data} />
                     )
                 }
           />
@@ -81,20 +86,19 @@ class ConsultaDespesa  extends Component {
         this.data2 = date
     }
     filtro(){
-        console.log(this.contador)
+
        
-        if(this.contador == 0){
-            this.consultado = this.props.despesas
-            this.props.consultaDataD( this.consultado, this.data1, this.data2)
-            this.contador += 1
-        }
-        this.props.consultaDataD(this.consultado, this.data1, this.data2)
+            this.consultado = this.props.receitas
+            this.props.consultaData( this.consultado, this.data1, this.data2)
+           
+        this.props.consultaData(this.consultado, this.data1, this.data2)
   
     }
+    
     render(){
         return(
             <Container>
-                <Header androidStatusBarColor='#DC143C' style={{height: 50, backgroundColor: '#ff0000'}}>
+                <Header androidStatusBarColor='#00CED1' style={{height: 50, backgroundColor: '#20b2aa'}}>
                     <Left >
                         <Icon name="menu" 
                             size={40} 
@@ -103,7 +107,7 @@ class ConsultaDespesa  extends Component {
                         />
                     </Left>
                     <Body>
-                        <Text style={{fontSize: 22, color: '#fff', marginLeft: 25}}> Despesas </Text>
+                        <Text style={{fontSize: 22, color: '#fff', marginLeft: 25}}> Receitas </Text>
                     </Body>
                 </Header>
                 <View style={{flex:1, padding: 10 }}>
@@ -116,9 +120,9 @@ class ConsultaDespesa  extends Component {
                                 date={this.data1}
                                 mode="date"
                                 placeholder = 'selecione a data'
-                                format='MM-DD-YYYY'
-                                minDate='01-01-1970'
-                                maxDate='30-12-2100'
+                                format='MM/DD/YYYY'
+                                minDate='01/01/1970'
+                                maxDate='12/30/2100'
                                 confirmBtnText = 'Confirmar'
                                 cancelBtnText = 'Cancelar'
                                 customStyles={{ dateIcon : {position: 'absolute', left: 0, top: 4, marginLeft: 0 }, dateInput: {marginLeft: 36}}}
@@ -131,9 +135,9 @@ class ConsultaDespesa  extends Component {
                                 date={this.data2}
                                 mode="date"
                                 placeholder = 'selecione a data'
-                                format='MM-DD-YYYY'
-                                minDate='01-01-1970'
-                                maxDate='30-12-2100'
+                                format='MM/DD/YYYY'
+                                minDate='01/01/1970'
+                                maxDate='12/30/2100'
                                 confirmBtnText = 'Confirmar'
                                 cancelBtnText = 'Cancelar'
                                 onDateChange = {(date) => this.modificaData2(date)}
@@ -142,21 +146,23 @@ class ConsultaDespesa  extends Component {
                          <View style={{ margin: 10,justifyContent: 'center' }}>
                             <View style={{ alignItems: 'flex-end', justifyContent: 'center' }}>
                                 <Icon name='search' containerStyle={{width: 100, height: 50,backgroundColor: '#fff', borderWidth: 2,
-                                     borderRadius:50, borderColor: "black"}}  color="#000"   onPress={() => 
+                                     borderRadius:50, borderColor: "black"}}  color="#000"  onPress={() => 
                                         this.filtro() }
                                       >
                                    
                                 </Icon>
                             </View>
-                        </View> 
+                        </View>
                         <View style={{flex:1, marginBottom: 10 }}>
                             {this.renderList()}
                         </View>
                             <View style={{ alignItems: 'flex-end', justifyContent: 'center' }}>
                             <Icon name='add' color='#fff' size={50} underlayColor='#000' raised 
-                                containerStyle={{width: 60,height:60, backgroundColor: '#ff0000', borderWidth: 2,
-                                borderRadius:80, borderColor: "transparent"} }  onPress={() => Actions.Despesa() }
-                                />
+                                containerStyle={{width: 60,height:60, backgroundColor: '#20b2aa', borderWidth: 2,
+                                borderRadius:80, borderColor: "transparent"} } onPress={() => Actions.Receita() }
+                                >
+                                
+                                </Icon>
                             </View>
                         </View>
                     </View>
@@ -165,13 +171,13 @@ class ConsultaDespesa  extends Component {
         );
     }
 }
-
 const mapStateToProps = state => {
-    const despesas = _.map(state.ListaDespesasReducer, (val, uid) => {
+    const receitas = _.map(state.ListaReceitasReducer, (val, uid) => {
         return { ...val, uid }
     })
-    return { despesas }
+    return { receitas }
+    
 }
 
 
-export default connect(mapStateToProps, { modificaValor, modificaData, modificaDesc, modificaCat, modificaConta, checked, consultaDespesa, consultaDataD})(ConsultaDespesa);
+export default connect(mapStateToProps,{consultaReceita, consultaData})(ConsultaReceita);

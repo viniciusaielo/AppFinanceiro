@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { View, Text,  ListView, ActivityIndicator } from 'react-native';
+import { View, Text,  ListView, ActivityIndicator} from 'react-native';
 import { connect } from 'react-redux';
 import { Icon } from 'react-native-elements';
 import DatePicker from 'react-native-datepicker';
@@ -16,11 +16,17 @@ import Itens from './Itens';
 class ConsultaReceita  extends Component {
    
     componentWillMount(){
-        this.props.consultaReceita();
+        const date = new Date()
+        const dia = date.getDate();
+        const mes = date.getMonth() + 1;
+        const ano = date.getFullYear();
+        let data = mes + "/" + dia + "/"+ ano;
+      
+        this.props.consultaReceita(data);
         this.criaFonteDeDados( this.props.receitas );
         this.loading = true;
-        this.data1 = '09-21-2016';
-        this.data2 = '09-29-2016';
+        this.data1 = '09/21/2016';
+        this.data2 = '09/29/2016';
         this.contador = 0;
         this.consultado = [];
 
@@ -80,13 +86,11 @@ class ConsultaReceita  extends Component {
         this.data2 = date
     }
     filtro(){
-        console.log(this.contador)
+
        
-        if(this.contador == 0){
             this.consultado = this.props.receitas
             this.props.consultaData( this.consultado, this.data1, this.data2)
-            this.contador += 1
-        }
+           
         this.props.consultaData(this.consultado, this.data1, this.data2)
   
     }
@@ -107,38 +111,12 @@ class ConsultaReceita  extends Component {
                     </Body>
                 </Header>
                 <View style={{flex:1, padding: 10 }}>
+                
 
-                    <View style={{ flex: 2,  justifyContent: 'center' }}>
-                        <View style={{ marginTop: 10,alignItems: 'center', flexDirection: 'row' }}>
-                            <Text> De </Text>
-                            <DatePicker
-                                style={{width: 150}}
-                                date={this.data1}
-                                mode="date"
-                                placeholder = 'selecione a data'
-                                format='MM-DD-YYYY'
-                                minDate='01-01-1970'
-                                maxDate='30-12-2100'
-                                confirmBtnText = 'Confirmar'
-                                cancelBtnText = 'Cancelar'
-                                customStyles={{ dateIcon : {position: 'absolute', left: 0, top: 4, marginLeft: 0 }, dateInput: {marginLeft: 36}}}
-                                onDateChange = {(date) => this.modificaData(date)}
-                            />
-                       
-                            <Text> Até </Text>
-                            <DatePicker
-                                style={{width: 150}}
-                                date={this.data2}
-                                mode="date"
-                                placeholder = 'selecione a data'
-                                format='MM-DD-YYYY'
-                                minDate='01-01-1970'
-                                maxDate='30-12-2100'
-                                confirmBtnText = 'Confirmar'
-                                cancelBtnText = 'Cancelar'
-                                onDateChange = {(date) => this.modificaData2(date)}
-                            />
-                        </View>
+                        <View style={{ flex: 2,  justifyContent: 'center' }}>
+                            <View style={{justifyContent: 'center'}}>
+                              
+                            </View>
                          <View style={{ margin: 10,justifyContent: 'center' }}>
                             <View style={{ alignItems: 'flex-end', justifyContent: 'center' }}>
                                 <Icon name='search' containerStyle={{width: 100, height: 50,backgroundColor: '#fff', borderWidth: 2,

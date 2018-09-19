@@ -74,9 +74,9 @@ class Despesa  extends Component {
                                 date={this.props.dataD}
                                 mode="date"
                                 placeholder = 'selecione a data'
-                                format='MM-DD-YYYY'
-                                minDate='01-01-1970'
-                                maxDate='30-12-2100'
+                                format='MM/DD/YYYY'
+                                minDate='01/01/1970'
+                                maxDate='12/30/2100'
                                 confirmBtnText = 'Confirmar'
                                 cancelBtnText = 'Cancelar'
                                 customStyles={{ dateIcon : {position: 'absolute', left: 0, top: 4, marginLeft: 0 }, dateInput: {marginLeft: 36}}}

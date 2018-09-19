@@ -18,12 +18,12 @@ import {
 
 const INITIAL_STATE = {
     valor: '',
-    data: '05-10-2016',
+    data: '',
     desc: '',
     cat: 'Salario',
     conta: 'Carteira',
     valorD: '',
-    dataD: '05-10-2016',
+    dataD: '',
     descD: '',
     catD: 'Alimentacao',
     contaD: 'Carteira',

@@ -104,8 +104,13 @@ export const checkedD = (texto) => {
 
 export const enviaReceita = ({valor,data,desc,cat,conta}) => {
    
+    const d = new Date(data)
+    
+    const ano = d.getFullYear()
+    var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    const mes =  months[d.getMonth()];
     return dispatch => {  
-        firebase.database().ref(`/receita/data`)
+        firebase.database().ref(`/receita/data/${ano}/${mes}`)
         .push({data,cat, valor, desc, conta })
         .then(alert("Receita Salva"))
         .catch(erro => console.log(erro.message, dispatch))
@@ -115,9 +120,14 @@ export const enviaReceita = ({valor,data,desc,cat,conta}) => {
 
 
 export const enviaDespesa = ({valor,data,desc,cat,conta}) => {
+    const d = new Date(data)
+    
+    const ano = d.getFullYear()
+    var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    const mes =  months[d.getMonth()];
 
     return dispatch => {
-         firebase.database().ref(`/despesa/data`)
+         firebase.database().ref(`/despesa/data/${ano}/${mes}`)
         .push({data,cat, valor, desc, conta })
         .then(alert("Despesa Salva"))
         .catch(erro => console.log(erro.message, dispatch))
@@ -125,13 +135,15 @@ export const enviaDespesa = ({valor,data,desc,cat,conta}) => {
 }
 
 
-export const consultaReceita = () => {
-   
+export const consultaReceita = (data) => {
+    const d = new Date(data)
+    const ano = d.getFullYear()
+    var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    const mes =  months[d.getMonth() ];
 
     return (dispatch) => {
       
-
-        firebase.database().ref(`/receita/data`)
+        firebase.database().ref(`/receita/data/${ano}/${mes}`)
             .on("value", snapshot => {
                 dispatch({ type: LISTA_RECEITA_USUARIO, payload: snapshot.val() })
             })
@@ -184,13 +196,16 @@ export const consultaDataD = (despesas, datai, dataf) => {
 
 }
 
-export const consultaDespesa = () => {
-   
+export const consultaDespesa = (data) => {
+    const d = new Date(data)
+    const ano = d.getFullYear()
+    var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    const mes =  months[d.getMonth() ];
 
     return (dispatch) => {
       
 
-        firebase.database().ref(`/despesa/data`)
+        firebase.database().ref(`/despesa/data/${ano}/${mes}`)
             .on("value", snapshot => {
                 dispatch({ type: LISTA_DESPESA_USUARIO, payload: snapshot.val() })
             })

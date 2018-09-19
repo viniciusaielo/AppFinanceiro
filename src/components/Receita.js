@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { View, TextInput, Image, Text, Picker } from 'react-native';
+import { View, TextInput } from 'react-native';
 import { connect } from 'react-redux';
 import {Button, CheckBox} from 'react-native-elements';
 
@@ -31,7 +31,6 @@ class Receita  extends Component {
       this.props.enviaReceita({valor,data,desc,cat,conta});
       this.props.modificaValor('');
       this.props.modificaDesc('');
-     
       this.props.modificaCat('Salario');
       this.props.modificaConta('');
       
@@ -76,9 +75,9 @@ class Receita  extends Component {
                                 date={this.props.data}
                                 mode="date"
                                 placeholder = 'selecione a data'
-                                format='MM-DD-YYYY'
-                                minDate='01-01-1970'
-                                maxDate='12-31-2100'
+                                format='MM/DD/YYYY'
+                                minDate='01/01/1970'
+                                maxDate='12/31/2100'
                                 confirmBtnText = 'Confirmar'
                                 cancelBtnText = 'Cancelar'
                                 customStyles={{ dateIcon : {position: 'absolute', left: 0, top: 4, marginLeft: 0 }, dateInput: {marginLeft: 36}}}
