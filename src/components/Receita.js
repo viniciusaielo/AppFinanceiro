@@ -15,6 +15,14 @@ class Receita  extends Component {
     super(props);
     this.state = {checked: false};
   }
+  componentWillMount(){
+    const date = new Date()
+    const dia = date.getDate();
+    const mes = date.getMonth() + 1;
+    const ano = date.getFullYear();
+    let data = mes + "/" + dia + "/"+ ano;
+    this.props.modificaData(data)
+  }
   verificar(){
     this.setState({ checked: !this.state.checked })
     if(this.state.checked == true ){

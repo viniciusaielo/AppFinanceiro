@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import {
   Picker, ListView
 } from 'react-native';
-import {consultaConta } from '../actions/contasActions';
+import {consultaConta,trocaid } from '../actions/contasActions';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import { modificaContaD } from '../actions/eventoActions';
@@ -22,7 +22,7 @@ class ContasItens extends Component {
  }
 componentWillReceiveProps(nextProps) {
     this.criaFonteDeDados( nextProps.contas )
-    
+
  }
 modificaContaD(text){
   this.setState({contaD: text})
@@ -30,11 +30,13 @@ modificaContaD(text){
 }
 criaFonteDeDados( contas ) {
     var itens = []
+
     for( var i = 0; i < contas.length; i++){
       itens.push(contas[i].titulo);
+
     }
     this.itens = itens
- 
+    
 }
   render() {
     return (
@@ -61,5 +63,5 @@ const mapStateToProps = state => {
 
 
 
-export default connect(mapStateToProps,{consultaConta,modificaContaD })(ContasItens);
+export default connect(mapStateToProps,{consultaConta,modificaContaD,trocaid })(ContasItens);
 

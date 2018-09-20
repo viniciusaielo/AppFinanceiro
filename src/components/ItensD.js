@@ -5,13 +5,36 @@ import {
   Text,
   Image,
   StyleSheet,
-  View
+  View, Alert
 } from 'react-native';
 import { Icon } from 'react-native-elements';
+import firebase from 'firebase'
 
 const despesa = require('../imgs/despesa.png');
 
 export default class ItensD extends Component {
+  delete(){
+    Alert.alert(
+      'Deletar Despesa',
+      'Deseja deletar o registro de despesa?',
+      [
+        {text: 'Sim', onPress: () => this.delete2()},
+        {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+        {text: 'Não', onPress: () => console.log('OK Pressed')},
+      ],
+      { cancelable: false }
+    )
+  }
+  delete2(){
+    const date = new Date(this.props.data.data)
+    var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    const mes =  months[date.getMonth()];
+    const ano = date.getFullYear();
+    
+    id = this.props.data.uid
+    firebase.database().ref(`/despesa/data/${ano}/${mes}/${id}`).remove();
+    
+  }
   render() {
     return (
       <View style={styles.principal}>
@@ -29,6 +52,12 @@ export default class ItensD extends Component {
         <View style={styles.icone}>
         <Icon name='edit' containerStyle={{width: 100, height: 30,backgroundColor: '#fff'}}  color="#4169E1" 
                                       >
+          </Icon>
+          <Icon name='delete'
+            containerStyle={{width: 100, height: 30,backgroundColor: '#fff'}}  
+            color="#FF0000" onPress={() => {
+              this.delete()
+              }} >
           </Icon>
         </View>
       </View>

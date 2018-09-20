@@ -7,7 +7,8 @@ import {
     FECHAMENTO,
     DISPONIVEL,
     BANDEIRA,
-    MODIFICA_CONTA_CARTAO
+    MODIFICA_CONTA_CARTAO,
+    IDCONTA
    
 } from '../actions/types';
 
@@ -21,7 +22,8 @@ const INITIAL_STATE = {
     desc: '',
     bandeira: '',
     conta_cartao: '',
-    contas: ['Bradesco', 'Carteira']
+    contas: ['Bradesco', 'Carteira'],
+    idconta: []
 }
 
 export default (state = INITIAL_STATE, action) => {
@@ -45,6 +47,8 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state, bandeira: action.payload }
         case MODIFICA_CONTA_CARTAO:
             return { ...state, conta_cartao: action.payload }
+        case IDCONTA:
+            return {...state, idconta: action.payload }
         default:
             return state;
     }    

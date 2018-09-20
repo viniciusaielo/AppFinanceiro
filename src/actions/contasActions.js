@@ -12,7 +12,8 @@ import {
    MODIFICA_CONTA_CARTAO,
    LISTA_CONTA_USUARIO,
    LISTA_CARTAO_USUARIO ,
-   LISTA_CATEGORIA_USUARIO   
+   LISTA_CATEGORIA_USUARIO,
+   IDCONTA   
 } from './types';
 
 export const modificaTitulo = (texto) => {
@@ -137,4 +138,23 @@ export const consultaCategoria = () => {
                 dispatch({ type: LISTA_CATEGORIA_USUARIO, payload: snapshot.val() })
             })
     }  
+}
+
+export const atualizaConta = (valor,conta) => {
+    const saldoN = valor
+
+    return dispatch => {
+            
+        firebase.database().ref(`/conta/${id}`)
+        .set({titulo: conta ,saldo: saldoN})
+        .then(alert("atualizou"))
+        .catch(erro => console.log(erro.message, dispatch))
+    }
+} 
+
+export const trocaid = (conta) =>{
+    return {
+        type: IDCONTA,
+        payload: conta
+    }
 }

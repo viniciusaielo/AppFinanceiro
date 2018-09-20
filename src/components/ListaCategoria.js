@@ -5,7 +5,7 @@ import {
   Text,
   TextInput ,
   StyleSheet,
-  View
+  View, Alert
 } from 'react-native';
 import firebase from 'firebase'
 import { Icon } from 'react-native-elements';
@@ -22,8 +22,19 @@ export default class ListaCategoria extends Component {
     this.editar = false;
     this.texto()
   }
-
   delete(){
+    Alert.alert(
+      'Deletar Categoria',
+      'Deseja deletar a categoria?',
+      [
+        {text: 'Sim', onPress: () => this.delete2()},
+        {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+        {text: 'Não', onPress: () => console.log('OK Pressed')},
+      ],
+      { cancelable: false }
+    )
+  }
+  delete2(){
     id = this.props.data.uid
     firebase.database().ref(`/categoria/${id}`).remove();
     

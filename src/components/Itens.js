@@ -5,7 +5,7 @@ import {
   Text,
   Image,
   StyleSheet,
-  View
+  View, Alert
 } from 'react-native';
 import { Icon } from 'react-native-elements';
 import firebase from 'firebase'
@@ -14,8 +14,25 @@ const receita = require('../imgs/receita.png');
 
 export default class Itens extends Component {
   delete(){
+    Alert.alert(
+      'Deletar Receita',
+      'Deseja deletar o registro de receita?',
+      [
+        {text: 'Sim', onPress: () => this.delete2()},
+        {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+        {text: 'Não', onPress: () => console.log('OK Pressed')},
+      ],
+      { cancelable: false }
+    )
+  }
+  delete2(){
+    const date = new Date(this.props.data.data)
+    var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    const mes =  months[date.getMonth()];
+    const ano = date.getFullYear();
+    
     id = this.props.data.uid
-    firebase.database().ref(`/receita/data/${id}`).remove();
+    firebase.database().ref(`/receita/data/${ano}/${mes}/${id}`).remove();
     
   }
   render() {

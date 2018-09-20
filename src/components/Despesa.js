@@ -4,6 +4,7 @@ import {Button, CheckBox} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { connect } from 'react-redux';
 import { modificaValorD, modificaDataD, modificaDescD, modificaCatD, modificaContaD, checkedD, enviaDespesa } from '../actions/eventoActions';
+import { atualizaConta } from '../actions/contasActions';
 import DatePicker from 'react-native-datepicker';
 import { Container, Header, Content, Left} from 'native-base';
 import ContasItensD from './ContasItensD';
@@ -14,6 +15,14 @@ class Despesa  extends Component {
      constructor(props) {
     super(props);
     this.state = {checked: false};
+  }
+  componentWillMount(){
+    const date = new Date()
+    const dia = date.getDate();
+    const mes = date.getMonth() + 1;
+    const ano = date.getFullYear();
+    let data = mes + "/" + dia + "/"+ ano;
+    this.props.modificaDataD(data)
   }
     verificar(){
     this.setState({ checked: !this.state.checked })
@@ -27,9 +36,11 @@ class Despesa  extends Component {
     const desc = this.props.descD;
     const cat = this.props.catD;
     const conta = this.props.contaD;
-    
 
+    
+   
     this.props.enviaDespesa({valor,data,desc,cat,conta});
+    
     this.props.modificaValorD('');
     this.props.modificaDescD(''); 
     this.props.modificaCatD('');
@@ -116,4 +127,4 @@ const mapStateToProps = state => (
 )
 
 export default connect(mapStateToProps, { modificaValorD, modificaDataD, modificaDescD,
-         modificaCatD, modificaContaD, checkedD, enviaDespesa})(Despesa);
+         modificaCatD, modificaContaD, checkedD, enviaDespesa,atualizaConta})(Despesa);
