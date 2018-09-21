@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { View, Text,  ListView, ActivityIndicator, TouchableHighlight, Picker} from 'react-native';
 import { connect } from 'react-redux';
 import { Icon } from 'react-native-elements';
-
+import RNPickerSelect from 'react-native-picker-select';
 import {Container, Header, Body, Left} from 'native-base';
 import {DrawerActions} from 'react-navigation';
 import PopupDialog, {DialogButton} from 'react-native-popup-dialog';
@@ -29,7 +29,9 @@ class ConsultaReceita  extends Component {
         this.data2 = '09/29/2016';
         this.contador = 0;
         this.consultado = [];
-
+        
+       
+      
      }
     componentWillReceiveProps(nextProps) {
         this.criaFonteDeDados( nextProps.receitas )
@@ -115,25 +117,21 @@ class ConsultaReceita  extends Component {
                             ref={(popupDialog) => { this.popupDialog = popupDialog; }}
                             srtyle={{width: 1, height: 100}}          
                             >
-                            <Picker
-                                style={{ transform: [ {scaleX: 1}, {scaleY: 1.5}]}}
-                                >
-                                    <Picker.Item label='Selecionar Conta' value='' />
-                            </Picker>
+                            
                              <DialogButton text="Cancelar" align="center" onPress={() => this.popupDialog.dismiss()}/>
                         </PopupDialog>
                     <View style={{ flex: 2,  justifyContent: 'center' }}>
-                        <TouchableHighlight onPress={() => this.popupDialog.show() }>
-                            <Text>MES/ANO</Text>
-                        </TouchableHighlight>
-                       
-                          
+                         <View style={{ justifyContent: 'center', flexDirection:'row' }}>        
+                            <TouchableHighlight onPress={() => this.popupDialog.show() }>
+                                <Text>MES/ANO</Text>
+                            </TouchableHighlight>
                         <View style={{ alignItems: 'flex-end', justifyContent: 'center' }}>
                             <Icon name='search' containerStyle={{width: 100, height: 50,backgroundColor: '#fff', borderWidth: 2,
                                             borderRadius:50, borderColor: "black"}}  color="#000"  onPress={() => 
                                                 this.filtro(data) }
                             >
                             </Icon>
+                        </View>
                         </View>
                       
                         <View style={{flex:1, marginBottom: 10 }}>
