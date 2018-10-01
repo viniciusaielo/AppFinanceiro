@@ -107,7 +107,7 @@ export const enviaReceita = ({valor,data,desc,cat,conta}) => {
     const d = new Date(data)
     
     const ano = d.getFullYear()
-    var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    var months = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Decembro"];
     const mes =  months[d.getMonth()];
     return dispatch => {  
         firebase.database().ref(`/receita/data/${ano}/${mes}`)
@@ -123,7 +123,7 @@ export const enviaDespesa = ({valor,data,desc,cat,conta}) => {
     const d = new Date(data)
     
     const ano = d.getFullYear()
-    var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    var months = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Decembro"];
     const mes =  months[d.getMonth()];
 
     return dispatch => {
@@ -138,7 +138,7 @@ export const enviaDespesa = ({valor,data,desc,cat,conta}) => {
 export const consultaReceita = (data) => {
     const d = new Date(data)
     const ano = d.getFullYear()
-    var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    var months = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Decembro"];
     const mes =  months[d.getMonth() ];
 
     return (dispatch) => {
@@ -150,56 +150,32 @@ export const consultaReceita = (data) => {
     }  
 }
 
-export const consultaData = (receitas, datai, dataf) => {
-    let ordena = receitas;
-    let ordenado = [];
-    var i;
-    var dataI = new Date(datai);
-    var dataF = new Date(dataf);
-    var data;
-    for( i = 0; i < ordena.length ; i++){
-        data = new Date(ordena[i].data)
-        if(data >= dataI && data <= dataF ){
-            ordenado.push(ordena[i]); 
-        }
-    }
-    console.log('aqui')
-    console.log(ordenado)
-     return {
-        type: LISTA_RECEITA_USUARIO,
-        payload: ordenado
-    }
+export const consultaData = (mes, ano) => {
+    return (dispatch) => {
+      
+        firebase.database().ref(`/receita/data/${ano}/${mes}`)
+            .on("value", snapshot => {
+                dispatch({ type: LISTA_RECEITA_USUARIO, payload: snapshot.val() })
+            })
+    }  
 
 }
-export const consultaDataD = (despesas, datai, dataf) => {
-    let ordena = despesas;
-    console.log(despesas)
-    let ordenado = [];
-    var i;
-    console.log(datai)
-    console.log(dataf)
-    var dataI = new Date(datai);
-    var dataF = new Date(dataf);
-    var data;
-    for( i = 0; i < ordena.length ; i++){
-        data = new Date(ordena[i].data)
-        if(data >= dataI && data <= dataF ){
-            ordenado.push(ordena[i]); 
-        }
-    }
-    console.log('aqui')
-    console.log(ordenado)
-     return {
-        type:  LISTA_DESPESA_USUARIO,
-        payload: ordenado
-    }
+export const consultaDataD = (mes, ano) => {
+    return (dispatch) => {
+      
+
+        firebase.database().ref(`/despesa/data/${ano}/${mes}`)
+            .on("value", snapshot => {
+                dispatch({ type: LISTA_DESPESA_USUARIO, payload: snapshot.val() })
+            })
+    }  
 
 }
 
 export const consultaDespesa = (data) => {
     const d = new Date(data)
     const ano = d.getFullYear()
-    var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    var months = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Decembro"];
     const mes =  months[d.getMonth() ];
 
     return (dispatch) => {
